@@ -1,4 +1,3 @@
-import { useState } from "react";
 
 export const saveCart = async (item) => {
     let localStore = localStorage.getItem('cart')
