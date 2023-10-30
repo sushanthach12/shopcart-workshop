@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
+import productContext from '../context/product/context'
 
 const Home = () => {
-    const [products, setProducts] = useState([])
+    const productContxt = useContext(productContext)
+    const { products, fetchProducts } = productContxt;
 
-    const fetchProduct = async () => {
-        const res = await fetch('https://dummyjson.com/products?limit=20');
-        const response = await res.json();
-        console.log(response)
-        setProducts(response?.products);
-    }
+    // const fetchProduct = async () => {
+    //     const res = await fetch('https://dummyjson.com/products?limit=20');
+    //     const response = await res.json();
+    //     console.log(response)
+    //     setProducts(response?.products);
+    // }
+
     useEffect(() => {
-        fetchProduct();
-    }, [])
+        fetchProducts();
+    }, [products])
 
     return (
         <div className='container my-3'>
@@ -20,7 +23,7 @@ const Home = () => {
             <div className='border-top py-4 d-flex flex-wrap'>
                 {
                     products.map(item => (
-                        <ProductCard key={item.id} item={item} />
+                        <ProductCard key={item._id} item={item} />
                     ))
                 }
             </div>

@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import productContext from '../context/product/context';
 
-const ProductList = () => {
+const DeleteProduct = () => {
+    const productContxt = useContext(productContext)
+    const { deleteProduct } = productContxt;
+
 	const [products, setProducts] = useState([])
 	const navigate = useNavigate();
 
 
-	const updatePro = async (id) => {
-		navigate(`/admin/update-product-form/${id}`)
-		console.log("Update")
+	const deletePro = async (id) => {
+        deleteProduct(id)
 	}
 
 	return (
@@ -33,7 +36,7 @@ const ProductList = () => {
 									</div>
 									<div class="d-flex flex-row align-items-center">
 										<div style={{ width: '50px' }}>
-											<button type="button" class="btn btn-danger" onClick={() => updatePro(item?.id)}>update</button>
+											<button type="button" class="btn btn-danger" onClick={() => deletePro(item?.id)}>del</button>
 										</div>
 										<div style={{ width: '85px' }}>
 											<h5 class="mb-0">₹{item?.price}</h5>
@@ -65,7 +68,7 @@ const ProductList = () => {
 									<h5 class="mb-0">₹344</h5>
 								</div>
 								<div>
-									<button type="button" class="btn btn-primary" onClick={() => updatePro(123)}>update</button>
+									<button type="button" class="btn btn-danger" onClick={() => deletePro(123)}>del</button>
 								</div>
 							</div>
 						</div>
@@ -77,4 +80,4 @@ const ProductList = () => {
 	)
 }
 
-export default ProductList
+export default DeleteProduct

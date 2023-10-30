@@ -1,21 +1,28 @@
-import React, { useContext, useState } from 'react'
-import productContext from '../context/product/context';
+import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import productContext from '../context/product/context'
 
-const ProductForm = () => {
+const UpdateForm = () => {
+
     const productContxt = useContext(productContext)
-    const { addProduct } = productContxt;
+    const { fetchProduct } = productContxt;
 
-    const [productForm, setProductForm] = useState({})
+    const { id } = useParams()
+    const [productForm, setProductForm] = useState()
 
-    const addPro = async (e) => {
+    const updatePro = (e) => {
         e.preventDefault()
-        await addProduct(productForm)
+        console.log("Update")
     }
 
     const handleChange = (e) => {
         setProductForm({...productForm, [e.target.name]: e.target.value})
     }
-    console.log(productForm)
+
+    useEffect(() => {
+        setProductForm(fetchProduct(id))
+    }, [id])
+    
 
     return (
         <div className='container'>
@@ -31,7 +38,7 @@ const ProductForm = () => {
                     </div>
                     <div className="col-12">
                         <label htmlFor="inputAddress" className="form-label">Description</label>
-                        <input type="text" className="form-control" id="inputAddress"   name='description' value={productForm?.desc} onChange={handleChange}/>
+                        <input type="text" className="form-control" id="inputAddress"   name='desc' value={productForm?.desc} onChange={handleChange}/>
                     </div>
                     <div className="col-12">
                         <label htmlFor="inputAddress2" className="form-label">Price</label>
@@ -40,7 +47,7 @@ const ProductForm = () => {
                     
 
                     <div className="col-12">
-                        <button type="submit" className="btn btn-primary" onClick={addPro}>Add</button>
+                        <button type="submit" className="btn btn-primary" onClick={updatePro}>Update</button>
                     </div>
                 </form>
             </div>
@@ -48,4 +55,4 @@ const ProductForm = () => {
     )
 }
 
-export default ProductForm
+export default UpdateForm
