@@ -3,6 +3,7 @@ import ProductContext from "./context";
 
 const ProductState = (props) => {
     const [products, setProducts] = useState([])
+    const [product, setProduct] = useState({})
 
     const fetchProduct = async (id) => {
         const response = await fetch(`http://localhost:5000/api/products/getProduct/${id}`, {
@@ -13,7 +14,8 @@ const ProductState = (props) => {
         });
 
         const json = await response.json();
-        return json
+        setProduct(json)
+        setProduct(json)
     }
 
     const fetchProducts = async () => {
@@ -41,29 +43,18 @@ const ProductState = (props) => {
     }
 
     const updateProduct = async (product) => {
-        const response = await fetch(`http://localhost:5000/api/products/updateProduct/${product?.id}`, {
+        console.log(product)
+        const response = await fetch(`http://localhost:5000/api/products/updateProduct/${product?._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ ...product })
+            body: JSON.stringify(product)
         });
         const pro = await response.json();
-        
-        //Logic to edit in client
-        
-        for (let index = 0; index < pro.length; index++) {
-            const element = pro[index];
-            if (element._id === product?.id) {
-                pro[index].title = product?.title;
-                pro[index].description = product?.desc;
-                pro[index].brand = product?.brand;
-                pro[index].price = product?.price;
-                break;
-            }
-        }
-
-        setProducts(products.concat(pro))
+        console.log(pro)
+        // //Logic to edit in client
+        await fetchProducts()
     }
 
     const deleteProduct = async (id) => {
@@ -81,7 +72,7 @@ const ProductState = (props) => {
     }
 
     return (
-        <ProductContext.Provider value={{ products, fetchProduct, fetchProducts, addProduct, updateProduct, deleteProduct }}>
+        <ProductContext.Provider value={{ products, product, fetchProduct, fetchProducts, addProduct, updateProduct, deleteProduct }}>
             {props.children}
         </ProductContext.Provider>
     )

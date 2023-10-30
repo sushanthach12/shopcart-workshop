@@ -5,14 +5,15 @@ import productContext from '../context/product/context'
 const UpdateForm = () => {
 
     const productContxt = useContext(productContext)
-    const { fetchProduct } = productContxt;
+    const { product, fetchProduct, updateProduct } = productContxt;
 
     const { id } = useParams()
-    const [productForm, setProductForm] = useState()
+    const [productForm, setProductForm] = useState(product)
 
-    const updatePro = (e) => {
+    const updatePro = async(e) => {
         e.preventDefault()
-        console.log("Update")
+        await updateProduct(productForm)
+        alert('Updated')
     }
 
     const handleChange = (e) => {
@@ -20,8 +21,8 @@ const UpdateForm = () => {
     }
 
     useEffect(() => {
-        setProductForm(fetchProduct(id))
-    }, [id])
+        fetchProduct(id)
+    }, [id, fetchProduct])
     
 
     return (
@@ -38,7 +39,7 @@ const UpdateForm = () => {
                     </div>
                     <div className="col-12">
                         <label htmlFor="inputAddress" className="form-label">Description</label>
-                        <input type="text" className="form-control" id="inputAddress"   name='desc' value={productForm?.desc} onChange={handleChange}/>
+                        <input type="text" className="form-control" id="inputAddress"   name='description' value={productForm?.description} onChange={handleChange}/>
                     </div>
                     <div className="col-12">
                         <label htmlFor="inputAddress2" className="form-label">Price</label>

@@ -10,12 +10,12 @@ const ProductForm = () => {
     const addPro = async (e) => {
         e.preventDefault()
         await addProduct(productForm)
+        alert('Added')
     }
 
     const handleChange = (e) => {
         setProductForm({...productForm, [e.target.name]: e.target.value})
     }
-    console.log(productForm)
 
     return (
         <div className='container'>
