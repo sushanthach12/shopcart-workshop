@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 const ProductForm = () => {
-    const [productForm, setProductForm] = useState({})
+    const [productForm, setProductForm] = useState({title : "Hello"})
 
     const addProduct = (e) => {
         e.preventDefault()
@@ -11,6 +11,7 @@ const ProductForm = () => {
     const handleChange = (e) => {
         setProductForm({...productForm, [e.target.name]: e.target.value})
     }
+    console.log(productForm)
 
     return (
         <div className='container'>

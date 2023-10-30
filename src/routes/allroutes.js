@@ -5,6 +5,7 @@ import Cart from '../components/Cart'
 import ProductItem from '../components/ProductItem'
 import Admin from '../components/Admin'
 import ProductForm from '../components/ProductForm'
+import ProductList from '../components/ProductList'
 
 const Allroutes = () => {
   return (
@@ -13,6 +14,7 @@ const Allroutes = () => {
       <Route exact path='/cart' element={<Cart />} />
       <Route exact path='/admin' element={<Admin />} />
       <Route exact path='/admin/add-product' element={<ProductForm />} />
+      <Route exact path='/admin/update-product' element={<ProductList />} />
 
       <Route exact path={'/product/:id'} element={<ProductItem />} />
     </Routes>
